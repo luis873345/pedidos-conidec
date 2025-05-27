@@ -2,119 +2,75 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Hacer Pedido</title>
+  <title>Administrador de Pedidos</title>
   <style>
     body {
-      background-color: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      padding: 30px;
       text-align: center;
     }
-
-    input, textarea, button {
-      padding: 8px;
-      margin: 5px;
-      width: 300px;
-      border-radius: 5px;
-      border: none;
+    h1 {
+      color: orange;
     }
-
-    textarea {
-      resize: vertical;
-    }
-
-    .section {
-      margin-top: 30px;
-    }
-
-    .pedido-item {
-      background-color: #f0f0f0;
-      color: #000;
+    .pedido {
+      margin: 20px auto;
       padding: 15px;
-      margin: 10px auto;
-      border-radius: 8px;
-      max-width: 500px;
+      background: #222;
+      border-left: 6px solid orange;
+      width: 320px;
       text-align: left;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    .pedido-item strong {
-      color: #222;
-      font-weight: bold;
-    }
-
-    .pedido-item em {
-      color: #444;
-      font-style: italic;
-    }
-
-    .pedido-item small {
-      color: #666;
-      display: block;
-      margin-top: 5px;
     }
   </style>
 </head>
 <body>
-  <div class="section">
-    <h2>Hacer Pedido</h2>
-    <form id="pedidoForm">
-      <input type="text" id="nombre" placeholder="Tu nombre" required><br>
-      <textarea id="pedido" placeholder="¿Qué vas a pedir?" rows="4" required></textarea><br>
-      <input type="text" id="direccion" placeholder="Tu dirección" required><br>
-      <button type="submit">Enviar Pedido</button>
-    </form>
 
-    <h3 style="color: #66ccff;">Pedidos Realizados</h3>
-    <div id="listaPedidos"></div>
-  </div>
+  <h1>📋 Pedidos Recibidos</h1>
+  <div id="lista-pedidos">Cargando...</div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <script>
-    function mostrarPedidos() {
-      const lista = document.getElementById('listaPedidos');
-      lista.innerHTML = '';
+    const firebaseConfig = {
+      apiKey: "AIzaSyBhibeNTwdh0VqnQ3gu1pYfhxJ9YPaq6vw",
+      authDomain: "pedidosconidec.firebaseapp.com",
+      databaseURL: "https://pedidosconidec-default-rtdb.firebaseio.com",
+      projectId: "pedidosconidec",
+      storageBucket: "pedidosconidec.firebasestorage.app",
+      messagingSenderId: "978685790608",
+      appId: "1:978685790608:web:a493a8f806642246894b15",
+      measurementId: "G-KKMDPZW7WB"
+    };
 
-      const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-      pedidos.forEach(p => {
-        const pedidoFormateado = p.pedido.replace(/\n/g, '<br>');
-        const div = document.createElement('div');
-        div.classList.add('pedido-item');
+    const listaPedidos = document.getElementById("lista-pedidos");
+
+    db.ref("pedidos").on("value", snapshot => {
+      listaPedidos.innerHTML = "";
+      const datos = snapshot.val();
+      if (!datos) {
+        listaPedidos.innerHTML = "<p>No hay pedidos aún.</p>";
+        return;
+      }
+
+      Object.values(datos).reverse().forEach(p => {
+        const div = document.createElement("div");
+        div.className = "pedido";
         div.innerHTML = `
-          <strong>${p.nombre}</strong> pidió:<br>
-          <em>${pedidoFormateado}</em><br>
-          Dirección: ${p.direccion}
-          <small>${p.fecha}</small>
+          <strong>📌 ${p.nombre}</strong><br>
+          📝 ${p.pedido}<br>
+          🏠 ${p.direccion}<br>
+          ⏰ ${p.fecha}
         `;
-        lista.appendChild(div);
+        listaPedidos.appendChild(div);
       });
-    }
-
-    document.getElementById('pedidoForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const nombre = document.getElementById('nombre').value;
-      const pedido = document.getElementById('pedido').value;
-      const direccion = document.getElementById('direccion').value;
-
-      const nuevoPedido = {
-        nombre,
-        pedido,
-        direccion,
-        fecha: new Date().toLocaleString()
-      };
-
-      let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-      pedidos.push(nuevoPedido);
-      localStorage.setItem('pedidos', JSON.stringify(pedidos));
-
-      alert('✅ Pedido guardado');
-      this.reset();
-
-      mostrarPedidos();
     });
-
-    window.addEventListener('load', mostrarPedidos);
   </script>
+
 </body>
 </html>
