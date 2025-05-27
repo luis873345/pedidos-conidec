@@ -64,15 +64,23 @@
       margin-bottom: 15px;
     }
 
-    .image-banner {
+    .info-banner {
       text-align: center;
       margin-bottom: 30px;
-    }
-
-    .image-banner img {
-      max-width: 100%;
+      background: #222;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .info-banner h3 {
+      color: #ffd700;
+      margin: 10px 0 5px;
+    }
+
+    .info-banner p {
+      font-size: 1.1rem;
+      margin: 5px 0;
     }
   </style>
 </head>
@@ -84,17 +92,26 @@
     <div class="section">
       <h2>Pizzas</h2>
 
-      <!-- Imagen con los tamaños y precios base -->
-      <div class="image-banner">
-        <img src="tamanos-pizza.png" alt="Tamaños de pizza y precios base">
+      <!-- Texto en lugar de imagen -->
+      <div class="info-banner">
+        <h3>Tamaños disponibles (pulgadas)</h3>
+        <p>8" &nbsp;&nbsp; 10" &nbsp;&nbsp; 12" &nbsp;&nbsp; 14"</p>
+        <h3>Precios base</h3>
+        <p>
+          Talla S: $8.000 &nbsp;&nbsp; | &nbsp;&nbsp;
+          Talla M: $10.000 &nbsp;&nbsp; | &nbsp;&nbsp;
+          Talla L: $12.000 &nbsp;&nbsp; | &nbsp;&nbsp;
+          Talla XL: $16.000
+        </p>
       </div>
 
-      <!-- Lista de pizzas -->
+      <!-- Encabezado de precios -->
       <div class="dish-card header">
         <span class="dish-name"></span>
         <span class="dish-price-list">S / M / L / XL</span>
       </div>
 
+      <!-- Lista de pizzas -->
       <div class="dish-card"><span class="dish-name">Jamón y Queso Mozarella</span><span class="dish-price-list">19k / 28k / 38k / 45k</span></div>
       <div class="dish-card"><span class="dish-name">Sólo Queso</span><span class="dish-price-list">15k / 20k / 27k / 35k</span></div>
       <div class="dish-card"><span class="dish-name">Hawaiana</span><span class="dish-price-list">20k / 30k / 40k / 48k</span></div>
