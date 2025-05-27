@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú Comida Rápida</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
+      color: #f0f0f0;
+    }
+
+    .menu-container {
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffd700;
+      margin-bottom: 30px;
+      font-size: 36px;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section h2 {
+      color: #ffd700;
+      border-bottom: 2px solid #ffd700;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .dish-card {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      flex-wrap: wrap;
+    }
+
+    .dish-card:hover {
+      transform: scale(1.02);
+    }
+
+    .dish-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      flex: 1 1 70%;
+    }
+
+    .dish-price {
+      font-size: 1rem;
+      color: #ffd700;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .dish-card small {
+      display: block;
+      font-size: 0.85rem;
+      color: #ccc;
+      margin-top: 6px;
+      font-weight: normal;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-container">
+    <h1>Menú Comida Rápida</h1>
+
+    <!-- SECCIÓN: Perros -->
+    <div class="section">
+      <h2>Perros</h2>
+
+      <div class="dish-card">
+        <span class="dish-name">Perro Sencillo</span>
+        <span class="dish-price">5k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">A La Plancha Sencillo</span>
+        <span class="dish-price">6k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Perro Ranchero</span>
+        <span class="dish-price">10k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Perro Medio Suizo
+          <small>(pan perro, cebolla, salchicha americana, chongo, queso mozarella, salsa de la casa, salsa cheddar)</small>
+        </span>
+        <span class="dish-price">8k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Perro Suizo
+          <small>(pan perro, cebolla, salchipapa suiza, chongo, queso mozarella, salsa de la casa)</small>
+        </span>
+        <span class="dish-price">13k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Chori Perro</span>
+        <span class="dish-price">8k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Buti Perro
+          <small>(pan perro, cebolla, butifarra Zenú, chongo, queso mozarella, salsa de la casa)</small>
+        </span>
+        <span class="dish-price">8k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Perro Gemelo
+          <small>(pan perro, cebolla, doble salchicha, chongo, queso mozarella, salsa de la casa)</small>
+        </span>
+        <span class="dish-price">8k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Hawaiano
+          <small>(pan perro, cebolla, salchicha, chongo, queso mozarella, tocineta, piña, salsa de la casa)</small>
+        </span>
+        <span class="dish-price">12k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Mexicano
+          <small>(pan perro, pico de gallo, salchicha, chongo, queso mozarella, chorizo, butifarra, salsa de la casa, chipotle)</small>
+        </span>
+        <span class="dish-price">7k</span>
+      </div>
+
+      <div class="dish-card">
+        <span class="dish-name">Perro Italiano
+          <small>(pan perro, cebolla, salchicha, chongo, queso mozarella, jamón, salsa de la casa)</small>
+        </span>
+        <span class="dish-price">6k</span>
+      </div>
+    </div>
+  </div>
+<div style="text-align: center; margin-top: 40px;">
+  <a href="index.html" style="
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: orange;
+    color: black;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+    transition: background-color 0.3s;
+  " onmouseover="this.style.backgroundColor='darkorange'" onmouseout="this.style.backgroundColor='orange'">
+    🔙 Volver al menú
+  </a>
+</div>
+
+</body>
+</html>

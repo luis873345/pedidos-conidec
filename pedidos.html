@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedidos Realizados</title>
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      padding: 30px;
+      text-align: center;
+    }
+    .pedido {
+      background: #222;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: left;
+      position: relative;
+    }
+    button {
+      padding: 5px 10px;
+      margin-top: 10px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: darkred;
+    }
+    .volver {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: orange;
+      color: black;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .volver:hover {
+      background: darkorange;
+    }
+    .recuperar {
+      background: green;
+      margin-left: 10px;
+      padding: 5px 10px;
+    }
+    .eliminar-todo {
+      background: crimson;
+      margin-left: 10px;
+      padding: 5px 10px;
+    }
+    h2 {
+      color: orange;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📋 Pedidos Realizados</h1>
+  <div id="lista-pedidos"></div>
+
+  <a class="volver" href="index.html">🔙 Volver al Pedido</a>
+  <br><br>
+  <button class="recuperar" onclick="recuperarTodos()" id="recuperar-todos-btn" style="display:none;">🔄 Recuperar Todos</button>
+  <button class="eliminar-todo" onclick="eliminarTodos()" id="eliminar-todo-btn">🗑 Eliminar Todos</button>
+
+  <script>
+    let eliminados = [];
+
+    function cargarPedidos() {
+      const contenedor = document.getElementById("lista-pedidos");
+      contenedor.innerHTML = "";
+
+      const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+      if (pedidos.length === 0) {
+        contenedor.innerHTML = "<p>No hay pedidos registrados.</p>";
+        return;
+      }
+
+      pedidos.forEach(pedido => {
+        const div = document.createElement("div");
+        div.className = "pedido";
+        div.innerHTML = `
+          <strong>${pedido.nombre}</strong> pidió:<br>${pedido.pedido}<br>
+          Dirección: ${pedido.direccion}<br>
+          <small>${pedido.fecha}</small><br>
+          <button onclick="eliminarPedido(${pedido.id})">Eliminar</button>
+        `;
+        contenedor.appendChild(div);
+      });
+    }
+
+    function eliminarPedido(id) {
+      let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+      const pedidoEliminado = pedidos.find(p => p.id === id);
+      pedidos = pedidos.filter(p => p.id !== id);
+      localStorage.setItem("pedidos", JSON.stringify(pedidos));
+      if (pedidoEliminado) eliminados.push(pedidoEliminado);
+      cargarPedidos();
+      mostrarBotonesRecuperar();
+    }
+
+    function eliminarTodos() {
+      const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+      if (pedidos.length > 0) {
+        eliminados.push(...pedidos);
+        localStorage.removeItem("pedidos");
+        cargarPedidos();
+        mostrarBotonesRecuperar();
+      }
+    }
+
+    function mostrarBotonesRecuperar() {
+      // Mostrar botón recuperar último
+      if (eliminados.length > 0 && !document.getElementById("recuperar-btn")) {
+        const btn = document.createElement("button");
+        btn.id = "recuperar-btn";
+        btn.className = "recuperar";
+        btn.innerText = "↩ Recuperar último eliminado";
+        btn.onclick = recuperarUltimo;
+        document.body.insertBefore(btn, document.querySelector(".volver"));
+      }
+
+      // Mostrar botón recuperar todos
+      if (eliminados.length > 0) {
+        document.getElementById("recuperar-todos-btn").style.display = "inline-block";
+      }
+    }
+
+    function recuperarUltimo() {
+      const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+      const recuperado = eliminados.pop();
+      if (recuperado) {
+        pedidos.push(recuperado);
+        localStorage.setItem("pedidos", JSON.stringify(pedidos));
+        cargarPedidos();
+      }
+      if (eliminados.length === 0) {
+        const btn = document.getElementById("recuperar-btn");
+        if (btn) btn.remove();
+        document.getElementById("recuperar-todos-btn").style.display = "none";
+      }
+    }
+
+    function recuperarTodos() {
+      const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+      pedidos.push(...eliminados);
+      localStorage.setItem("pedidos", JSON.stringify(pedidos));
+      eliminados = [];
+      cargarPedidos();
+
+      // Ocultar botones de recuperación
+      const btn = document.getElementById("recuperar-btn");
+      if (btn) btn.remove();
+      document.getElementById("recuperar-todos-btn").style.display = "none";
+    }
+
+    cargarPedidos();
+  </script>
+
+</body>
+</html>
