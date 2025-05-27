@@ -1,136 +1,154 @@
-<!-- index.html - Formulario de pedido -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Hacer Pedido</title>
+  <title>Menú Comida Rápida - Pizzas</title>
   <style>
     body {
-      background: #111;
-      color: white;
-      font-family: sans-serif;
-      padding: 30px;
-      text-align: center;
-    }
-    input, textarea {
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      width: 300px;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      padding: 10px 20px;
-      background: orange;
-      color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: darkorange;
-    }
-  </style>
-</head>
-<body>
-  <h1>Hacer Pedido</h1>
-
-  <input id="nombre" placeholder="Tu nombre">
-  <textarea id="pedido" placeholder="¿Qué vas a pedir?"></textarea>
-  <input id="direccion" placeholder="Tu dirección">
-
-  <button onclick="enviarPedido()">Enviar Pedido</button>
-
-  <script>
-    // Cargar carrito automáticamente
-    window.onload = function() {
-      const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-      document.getElementById("pedido").value = carrito.join("\n");
-    };
-
-    function enviarPedido() {
-      const nombre = document.getElementById("nombre").value.trim();
-      const pedido = document.getElementById("pedido").value.trim();
-      const direccion = document.getElementById("direccion").value.trim();
-
-      if (!nombre || !pedido || !direccion) {
-        alert("Por favor llena todos los campos.");
-        return;
-      }
-
-      alert("✅ Pedido enviado correctamente!\n" + pedido);
-      localStorage.removeItem("carrito");
-      document.getElementById("nombre").value = "";
-      document.getElementById("pedido").value = "";
-      document.getElementById("direccion").value = "";
-    }
-  </script>
-</body>
-</html>
-
-<!-- pizzas.html - Menú con botones -->
-<!-- Aquí va un ejemplo con 2 pizzas -->
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Menú de Pizzas</title>
-  <style>
-    body {
-      background: #111;
-      color: white;
-      font-family: sans-serif;
+      margin: 0;
       padding: 40px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+
+    .menu-container {
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+    }
+
+    h1, h2 {
       text-align: center;
+      margin-bottom: 30px;
+      color: #ffd700;
     }
-    .pizza {
-      background: #222;
-      padding: 15px;
-      margin: 15px auto;
-      width: 300px;
-      border-radius: 10px;
+
+    .dish-card {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      flex-wrap: wrap;
     }
-    button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      background: orange;
-      color: black;
+
+    .dish-card:hover {
+      transform: scale(1.02);
+    }
+
+    .dish-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      flex: 1 1 70%;
+    }
+
+    .dish-price-list {
+      color: #ffd700;
       font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      text-align: right;
+      white-space: nowrap;
     }
-    button:hover {
-      background: darkorange;
+
+    .dish-card.header {
+      font-weight: bold;
+      background-color: transparent;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .info-banner {
+      text-align: center;
+      margin-bottom: 30px;
+      background: #222;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .info-banner h3 {
+      color: #ffd700;
+      margin: 10px 0 5px;
+    }
+
+    .info-banner p {
+      font-size: 1.1rem;
+      margin: 5px 0;
     }
   </style>
 </head>
 <body>
-  <h1>🍕 Menú de Pizzas</h1>
 
-  <div class="pizza">
-    <h3>Jamón y Queso Mozarella</h3>
-    <p>19k / 28k / 38k / 45k</p>
-    <button onclick="agregarAlCarrito('Jamón y Queso Mozarella - 19k / 28k / 38k / 45k')">Añadir al carrito</button>
+  <div class="menu-container">
+    <h1>Menú Comida Rápida</h1>
+
+    <div class="section">
+      <h2>Pizzas</h2>
+
+      <!-- Texto en lugar de imagen -->
+      <div class="info-banner">
+        <h3>Borde Se Queso</h3>
+        <p>8" &nbsp;&nbsp; 10" &nbsp;&nbsp; 12" &nbsp;&nbsp; 14"</p>
+        <h3>Precios base</h3>
+        <p>
+          Talla S: $8.000 &nbsp;&nbsp; | &nbsp;&nbsp;
+          Talla M: $10.000 &nbsp;&nbsp; | &nbsp;&nbsp;
+          Talla L: $12.000 &nbsp;&nbsp; | &nbsp;&nbsp;
+          Talla XL: $16.000
+        </p>
+      </div>
+
+      <!-- Encabezado de precios -->
+      <div class="dish-card header">
+        <span class="dish-name"></span>
+        <span class="dish-price-list">S / M / L / XL</span>
+      </div>
+
+      <!-- Lista de pizzas -->
+      <div class="dish-card"><span class="dish-name">Jamón y Queso Mozarella</span><span class="dish-price-list">19k / 28k / 38k / 45k</span></div>
+      <div class="dish-card"><span class="dish-name">Sólo Queso</span><span class="dish-price-list">15k / 20k / 27k / 35k</span></div>
+      <div class="dish-card"><span class="dish-name">Hawaiana</span><span class="dish-price-list">20k / 30k / 40k / 48k</span></div>
+      <div class="dish-card"><span class="dish-name">Pepperoni</span><span class="dish-price-list">23k / 31k / 41k / 53k</span></div>
+      <div class="dish-card"><span class="dish-name">Salami</span><span class="dish-price-list">21k / 28k / 38k / 48k</span></div>
+      <div class="dish-card"><span class="dish-name">4 Carnes</span><span class="dish-price-list">26k / 37k / 48k / 61k</span></div>
+      <div class="dish-card"><span class="dish-name">Pollo</span><span class="dish-price-list">23k / 31k / 43k / 55k</span></div>
+      <div class="dish-card"><span class="dish-name">Pollo Hawaiana</span><span class="dish-price-list">26k / 34k / 48k / 60k</span></div>
+      <div class="dish-card"><span class="dish-name">Pollo Tocineta</span><span class="dish-price-list">23k / 34k / 46k / 60k</span></div>
+      <div class="dish-card"><span class="dish-name">Suiza Ranchera Tocineta</span><span class="dish-price-list">23k / 34k / 46k / 58k</span></div>
+      <div class="dish-card"><span class="dish-name">Suiza Ranchera Tocineta Especial</span><span class="dish-price-list">25k / 36k / 48k / 60k</span></div>
+      <div class="dish-card"><span class="dish-name">Pizza Perro</span><span class="dish-price-list">20k / 29k / 38k / 46k</span></div>
+      <div class="dish-card"><span class="dish-name">Pizza Perro Especial</span><span class="dish-price-list">22k / 31k / 40k / 49k</span></div>
+      <div class="dish-card"><span class="dish-name">Costeña</span><span class="dish-price-list">21k / 30k / 38k / 47k</span></div>
+      <div class="dish-card"><span class="dish-name">Vegetariana</span><span class="dish-price-list">23k / 31k / 40k / 49k</span></div>
+      <div class="dish-card"><span class="dish-name">Bocadillo y Queso</span><span class="dish-price-list">21k / 36k / 46k / 51k</span></div>
+      <div class="dish-card"><span class="dish-name">Napolitana</span><span class="dish-price-list">18k / 26k / 33k / 39k</span></div>
+      <div class="dish-card"><span class="dish-name">Pizza del Sabor</span><span class="dish-price-list">26k / 37k / 49k / 61k</span></div>
+    </div>
+
+    <!-- Botón para volver -->
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="index.html" style="
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: orange;
+        color: black;
+        font-weight: bold;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+        transition: background-color 0.3s;
+      " onmouseover="this.style.backgroundColor='darkorange'" onmouseout="this.style.backgroundColor='orange'">
+        🔙 Volver al menú
+      </a>
+    </div>
+
   </div>
-
-  <div class="pizza">
-    <h3>Hawaiana</h3>
-    <p>20k / 30k / 40k / 48k</p>
-    <button onclick="agregarAlCarrito('Hawaiana - 20k / 30k / 40k / 48k')">Añadir al carrito</button>
-  </div>
-
-  <a href="index.html" style="display:block;margin-top:30px;color:orange;">Ir al formulario de pedido</a>
-
-  <script>
-    function agregarAlCarrito(producto) {
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      carrito.push(producto);
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      alert(producto + " añadido al carrito");
-    }
-  </script>
 </body>
 </html>
