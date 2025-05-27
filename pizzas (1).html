@@ -32,12 +32,8 @@
       border-radius: 12px;
       padding: 15px 20px;
       margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s;
-      flex-wrap: wrap;
     }
 
     .dish-card:hover {
@@ -47,105 +43,135 @@
     .dish-name {
       font-weight: 600;
       font-size: 1.1rem;
-      flex: 1 1 70%;
     }
 
-    .dish-price-list {
-      color: #ffd700;
-      font-weight: bold;
+    .dish-price {
       text-align: right;
-      white-space: nowrap;
-    }
-
-    .dish-card.header {
       font-weight: bold;
-      background-color: transparent;
-      color: #ccc;
-      margin-bottom: 15px;
-    }
-
-    .info-banner {
-      text-align: center;
-      margin-bottom: 30px;
-      background: #222;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    }
-
-    .info-banner h3 {
       color: #ffd700;
-      margin: 10px 0 5px;
+      float: right;
     }
 
-    .info-banner p {
-      font-size: 1.1rem;
-      margin: 5px 0;
+    .back-button {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back-button a {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: orange;
+      color: black;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+      transition: background-color 0.3s;
+    }
+
+    .back-button a:hover {
+      background-color: darkorange;
     }
   </style>
 </head>
 <body>
-
   <div class="menu-container">
     <h1>Menú Comida Rápida</h1>
+    <h2>Pizzas</h2>
 
-    <div class="section">
-      <h2>Pizzas</h2>
-
-      <!-- Texto en lugar de imagen -->
-      <div class="info-banner">
-        <h3>Tamaños con borde de queso</h3>
-        <p>8" &nbsp;&nbsp; 10" &nbsp;&nbsp; 12" &nbsp;&nbsp; 14"</p>
-        <h3>Precios con borde de queso</h3>
-        <p>
-          Talla S: $8.000 &nbsp;&nbsp; | &nbsp;&nbsp;
-          Talla M: $10.000 &nbsp;&nbsp; | &nbsp;&nbsp;
-          Talla L: $12.000 &nbsp;&nbsp; | &nbsp;&nbsp;
-          Talla XL: $16.000
-        </p>
-      </div>
-
-      <div class="dish-card header">
-        <span class="dish-name"></span>
-        <span class="dish-price-list">S / M / L / XL</span>
-      </div>
-
-      <div class="dish-card"><span class="dish-name">Jamón y Queso Mozarella</span><span class="dish-price-list">19k / 28k / 38k / 45k</span></div>
-      <div class="dish-card"><span class="dish-name">Sólo Queso</span><span class="dish-price-list">15k / 20k / 27k / 35k</span></div>
-      <div class="dish-card"><span class="dish-name">Hawaiana</span><span class="dish-price-list">20k / 30k / 40k / 48k</span></div>
-      <div class="dish-card"><span class="dish-name">Pepperoni</span><span class="dish-price-list">23k / 31k / 41k / 53k</span></div>
-      <div class="dish-card"><span class="dish-name">Salami</span><span class="dish-price-list">21k / 28k / 38k / 48k</span></div>
-      <div class="dish-card"><span class="dish-name">4 Carnes</span><span class="dish-price-list">26k / 37k / 48k / 61k</span></div>
-      <div class="dish-card"><span class="dish-name">Pollo</span><span class="dish-price-list">23k / 31k / 43k / 55k</span></div>
-      <div class="dish-card"><span class="dish-name">Pollo Hawaiana</span><span class="dish-price-list">26k / 34k / 48k / 60k</span></div>
-      <div class="dish-card"><span class="dish-name">Pollo Tocineta</span><span class="dish-price-list">23k / 34k / 46k / 60k</span></div>
-      <div class="dish-card"><span class="dish-name">Suiza Ranchera Tocineta</span><span class="dish-price-list">23k / 34k / 46k / 58k</span></div>
-      <div class="dish-card"><span class="dish-name">Suiza Ranchera Tocineta Especial</span><span class="dish-price-list">25k / 36k / 48k / 60k</span></div>
-      <div class="dish-card"><span class="dish-name">Pizza Perro</span><span class="dish-price-list">20k / 29k / 38k / 46k</span></div>
-      <div class="dish-card"><span class="dish-name">Pizza Perro Especial</span><span class="dish-price-list">22k / 31k / 40k / 49k</span></div>
-      <div class="dish-card"><span class="dish-name">Costeña</span><span class="dish-price-list">21k / 30k / 38k / 47k</span></div>
-      <div class="dish-card"><span class="dish-name">Vegetariana</span><span class="dish-price-list">23k / 31k / 40k / 49k</span></div>
-      <div class="dish-card"><span class="dish-name">Bocadillo y Queso</span><span class="dish-price-list">21k / 36k / 46k / 51k</span></div>
-      <div class="dish-card"><span class="dish-name">Napolitana</span><span class="dish-price-list">18k / 26k / 33k / 39k</span></div>
-      <div class="dish-card"><span class="dish-name">Pizza del Sabor</span><span class="dish-price-list">26k / 37k / 49k / 61k</span></div>
+    <div class="dish-card">
+      <span class="dish-name">Jamón y Queso Mozarella</span>
+      <span class="dish-price">19k / 28k / 38k / 45k</span>
     </div>
 
-    <div style="text-align: center; margin-top: 40px;">
-      <a href="index.html" style="
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: orange;
-        color: black;
-        font-weight: bold;
-        border-radius: 8px;
-        text-decoration: none;
-        box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
-        transition: background-color 0.3s;
-      " onmouseover="this.style.backgroundColor='darkorange'" onmouseout="this.style.backgroundColor='orange'">
-        🔙 Volver al menú
-      </a>
+    <div class="dish-card">
+      <span class="dish-name">Sólo Queso</span>
+      <span class="dish-price">15k / 20k / 27k / 35k</span>
     </div>
 
+    <div class="dish-card">
+      <span class="dish-name">Hawaiana</span>
+      <span class="dish-price">20k / 30k / 40k / 48k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pepperoni</span>
+      <span class="dish-price">23k / 31k / 41k / 53k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Salami</span>
+      <span class="dish-price">21k / 28k / 38k / 48k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">4 Carnes</span>
+      <span class="dish-price">26k / 37k / 48k / 61k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pollo</span>
+      <span class="dish-price">23k / 31k / 43k / 55k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pollo Hawaiana</span>
+      <span class="dish-price">26k / 34k / 48k / 60k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pollo Tocineta</span>
+      <span class="dish-price">23k / 34k / 46k / 60k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Suiza Ranchera Tocineta</span>
+      <span class="dish-price">23k / 34k / 46k / 58k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Suiza Ranchera Tocineta Especial</span>
+      <span class="dish-price">25k / 36k / 48k / 60k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pizza Perro</span>
+      <span class="dish-price">20k / 29k / 38k / 46k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pizza Perro Especial</span>
+      <span class="dish-price">22k / 31k / 40k / 49k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Costeña</span>
+      <span class="dish-price">21k / 30k / 38k / 47k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Vegetariana</span>
+      <span class="dish-price">23k / 31k / 40k / 49k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Bocadillo y Queso</span>
+      <span class="dish-price">21k / 36k / 46k / 51k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Napolitana</span>
+      <span class="dish-price">18k / 26k / 33k / 39k</span>
+    </div>
+
+    <div class="dish-card">
+      <span class="dish-name">Pizza del Sabor</span>
+      <span class="dish-price">26k / 37k / 49k / 61k</span>
+    </div>
+
+    <div class="back-button">
+      <a href="index.html">🔙 Volver al menú</a>
+    </div>
   </div>
 </body>
 </html>
