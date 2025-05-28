@@ -44,6 +44,16 @@
       background-color: orange;
       color: black;
     }
+    .borrar-todo {
+      background-color: crimson;
+      color: white;
+      margin-left: 10px;
+    }
+    .volver {
+      background-color: #444;
+      color: white;
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
@@ -51,7 +61,11 @@
   <h1>📋 Pedidos Recibidos</h1>
   <div id="lista-pedidos">Cargando...</div>
 
-  <button class="ver-eliminados" onclick="verEliminados()">🗃 Ver eliminados</button>
+  <div style="margin-top: 20px;">
+    <button class="ver-eliminados" onclick="verEliminados()">🗃 Ver eliminados</button>
+    <button class="borrar-todo" onclick="borrarTodosEliminados()">🧹 Borrar todos los eliminados</button>
+    <button class="volver" onclick="verPedidosActivos()">↩ Volver</button>
+  </div>
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -73,6 +87,11 @@
     const db = firebase.database();
     const listaPedidos = document.getElementById("lista-pedidos");
 
+    function esPedidoDeHoy(fechaStr) {
+      const hoy = new Date().toLocaleDateString();
+      return fechaStr.startsWith(hoy);
+    }
+
     function cargarPedidos(ref, mostrarRecuperar = false) {
       ref.on("value", snapshot => {
         listaPedidos.innerHTML = "";
@@ -83,6 +102,8 @@
         }
 
         Object.entries(datos).reverse().forEach(([id, p]) => {
+          if (!mostrarRecuperar && !esPedidoDeHoy(p.fecha)) return; // ignorar si no es de hoy
+
           const div = document.createElement("div");
           div.className = "pedido";
           div.innerHTML = `
@@ -114,7 +135,9 @@
       });
     }
 
-    cargarPedidos(db.ref("pedidos"));
+    function verPedidosActivos() {
+      cargarPedidos(db.ref("pedidos"));
+    }
 
     function verEliminados() {
       db.ref("eliminados").once("value", snapshot => {
@@ -145,6 +168,16 @@
         });
       });
     }
+
+    function borrarTodosEliminados() {
+      if (confirm("¿Estás seguro de que quieres borrar TODOS los pedidos eliminados?")) {
+        db.ref("eliminados").remove()
+          .then(() => alert("Todos los pedidos eliminados han sido borrados."))
+          .catch(err => alert("Error al borrar: " + err));
+      }
+    }
+
+    cargarPedidos(db.ref("pedidos"));
   </script>
 
 </body>
