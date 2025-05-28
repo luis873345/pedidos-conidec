@@ -21,6 +21,28 @@
       border-left: 6px solid orange;
       width: 320px;
       text-align: left;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .eliminar {
+      background-color: red;
+      color: white;
+    }
+    .recuperar {
+      background-color: green;
+      color: white;
+    }
+    .ver-eliminados {
+      margin-top: 20px;
+      background-color: orange;
+      color: black;
     }
   </style>
 </head>
@@ -28,6 +50,8 @@
 
   <h1>📋 Pedidos Recibidos</h1>
   <div id="lista-pedidos">Cargando...</div>
+
+  <button class="ver-eliminados" onclick="verEliminados()">🗃 Ver eliminados</button>
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -47,29 +71,80 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-
     const listaPedidos = document.getElementById("lista-pedidos");
 
-    db.ref("pedidos").on("value", snapshot => {
-      listaPedidos.innerHTML = "";
-      const datos = snapshot.val();
-      if (!datos) {
-        listaPedidos.innerHTML = "<p>No hay pedidos aún.</p>";
-        return;
-      }
+    function cargarPedidos(ref, mostrarRecuperar = false) {
+      ref.on("value", snapshot => {
+        listaPedidos.innerHTML = "";
+        const datos = snapshot.val();
+        if (!datos) {
+          listaPedidos.innerHTML = "<p>No hay pedidos.</p>";
+          return;
+        }
 
-      Object.values(datos).reverse().forEach(p => {
-        const div = document.createElement("div");
-        div.className = "pedido";
-        div.innerHTML = `
-          <strong>📌 ${p.nombre}</strong><br>
-          📝 ${p.pedido}<br>
-          🏠 ${p.direccion}<br>
-          ⏰ ${p.fecha}
-        `;
-        listaPedidos.appendChild(div);
+        Object.entries(datos).reverse().forEach(([id, p]) => {
+          const div = document.createElement("div");
+          div.className = "pedido";
+          div.innerHTML = `
+            <strong>📌 ${p.nombre}</strong><br>
+            📝 ${p.pedido}<br>
+            🏠 ${p.direccion}<br>
+            ⏰ ${p.fecha}<br>
+          `;
+
+          const btn = document.createElement("button");
+          if (mostrarRecuperar) {
+            btn.textContent = "♻ Recuperar";
+            btn.className = "recuperar";
+            btn.onclick = () => {
+              db.ref("pedidos/" + id).set(p);
+              db.ref("eliminados/" + id).remove();
+            };
+          } else {
+            btn.textContent = "🗑 Eliminar";
+            btn.className = "eliminar";
+            btn.onclick = () => {
+              db.ref("eliminados/" + id).set(p);
+              db.ref("pedidos/" + id).remove();
+            };
+          }
+          div.appendChild(btn);
+          listaPedidos.appendChild(div);
+        });
       });
-    });
+    }
+
+    cargarPedidos(db.ref("pedidos"));
+
+    function verEliminados() {
+      db.ref("eliminados").once("value", snapshot => {
+        const datos = snapshot.val();
+        listaPedidos.innerHTML = "";
+        if (!datos) {
+          listaPedidos.innerHTML = "<p>No hay pedidos eliminados.</p>";
+          return;
+        }
+        Object.entries(datos).reverse().forEach(([id, p]) => {
+          const div = document.createElement("div");
+          div.className = "pedido";
+          div.innerHTML = `
+            <strong>📌 ${p.nombre}</strong><br>
+            📝 ${p.pedido}<br>
+            🏠 ${p.direccion}<br>
+            ⏰ ${p.fecha}<br>
+          `;
+          const btn = document.createElement("button");
+          btn.textContent = "♻ Recuperar";
+          btn.className = "recuperar";
+          btn.onclick = () => {
+            db.ref("pedidos/" + id).set(p);
+            db.ref("eliminados/" + id).remove();
+          };
+          div.appendChild(btn);
+          listaPedidos.appendChild(div);
+        });
+      });
+    }
   </script>
 
 </body>
